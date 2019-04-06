@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Feb 23 20:55:50 2019
-
-@author: Jie
-"""
-
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -14,7 +7,7 @@ pd.set_option('display.max_colwidth', 1000)
 pd.set_option('display.width', None)
 
 ###############################################################################
-election = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/pennsylvania2012_turnout.csv', index_col='county')
+election = pd.read_csv('pennsylvania2012_turnout.csv', index_col='county')
 
 # Create a separate dataframe with the columns ['winner', 'total', 'voters']: results
 results = election[['winner','total','voters']]
@@ -83,7 +76,7 @@ election.winner[too_close] = np.nan
 print(election.info())
 
 ###############################################################################
-titanic = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/titanic.csv')
+titanic = pd.read_csv('titanic.csv')
 
 # Select the 'age' and 'cabin' columns: df
 df = titanic[['age','cabin']]
@@ -100,7 +93,7 @@ print(df.dropna(how='all').shape)
 # Drop columns in titanic with less than 1000 non-missing values
 print(titanic.dropna(thresh=1000, axis='columns').info())
 ###############################################################################
-weather = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/pittsburgh2013.csv')
+weather = pd.read_csv('pittsburgh2013.csv')
 # Write a function to convert degrees Fahrenheit to degrees Celsius: to_celsius
 def to_celsius(F):
     return 5/9*(F - 32)
@@ -138,7 +131,7 @@ election['turnout_zscore']=turnout_zscore
 # Print the output of election.head()
 print(election.head())
 ###############################################################################
-sales = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/sales.csv', index_col='month')
+sales = pd.read_csv('sales.csv', index_col='month')
 # Create the list of new indexes: new_idx
 new_idx = [i.upper() for i in sales.index]
 
@@ -169,7 +162,7 @@ CA_TX_month2 = sales.loc[(['CA','TX'],2),:]
 # Look up data for all states in month 2: all_month2
 all_month2 = sales.loc[(slice(None), 2),:]
 ###############################################################################
-users = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/users.csv')
+users = pd.read_csv('users.csv')
 users = users.iloc[:,1:]
 print(users)
 # Pivot the users DataFrame: visitors_pivot
@@ -190,7 +183,7 @@ pivot = users.pivot(index='weekday', columns='city')
 # Print the pivoted DataFrame
 print(pivot)
 ###############################################################################
-df = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/users.csv', index_col=['city', 'weekday'])
+df = pd.read_csv('users.csv', index_col=['city', 'weekday'])
 users = df.iloc[:,1:]
 users = users.sort_index()
 
@@ -204,7 +197,7 @@ print(byweekday)
 print(byweekday.stack(level='weekday'))
 
 ###############################################################################
-df = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/users.csv')
+df = pd.read_csv('users.csv')
 users=df.iloc[:,1:]
 visitors_by_city_weekday=users.pivot(index='weekday', columns='city', values='visitors')
 # Reset the index: visitors_by_city_weekday
@@ -268,7 +261,7 @@ signups_and_visitors_total = users.pivot_table(index='weekday', aggfunc=sum, mar
 # Print signups_and_visitors_total
 print(signups_and_visitors_total)
 ###############################################################################
-titanic = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/titanic.csv')
+titanic = pd.read_csv('titanic.csv')
 # Group titanic by 'pclass'
 by_class = titanic.groupby('pclass')
 
@@ -287,7 +280,7 @@ count_mult = by_mult.survived.count()
 # Print count_mult
 print(count_mult)
 ###############################################################################
-titanic = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/titanic.csv')
+titanic = pd.read_csv('titanic.csv')
 
 # Group titanic by 'pclass': by_class
 by_class = titanic.groupby('pclass')
@@ -305,7 +298,7 @@ print(aggregated.loc[:, ('age','max')])
 # Print the median fare in each class
 print(aggregated.loc[:, ('fare','median')])
 ###############################################################################
-gapminder = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/gapminder_tidy.csv', index_col=['Year','region','Country'])
+gapminder = pd.read_csv('gapminder_tidy.csv', index_col=['Year','region','Country'])
 gapminder = gapminder.sort_index()
 
 # Group gapminder by 'Year' and 'region': by_year_region
@@ -325,7 +318,7 @@ aggregated = by_year_region.agg(aggregator)
 print(aggregated.tail)
 ###############################################################################
 # Read file: sales
-sales = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/sales-feb-2015.csv', index_col='Date', parse_dates=True)
+sales = pd.read_csv('sales-feb-2015.csv', index_col='Date', parse_dates=True)
 
 # Create a groupby object: by_day
 by_day = sales.groupby(sales.index.strftime('%a'))
@@ -336,7 +329,7 @@ units_sum = by_day['Units'].sum()
 # Print units_sum
 print(units_sum)
 ###############################################################################
-df = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/gapminder_tidy.csv', index_col='Country')
+df = pd.read_csv('gapminder_tidy.csv', index_col='Country')
 gapminder_2010 = df[df['Year']==2010].iloc[:,1:]
 
 # Import zscore
@@ -354,7 +347,7 @@ gm_outliers = gapminder_2010.loc[outliers]
 # Print gm_outliers
 print(gm_outliers)
 ###############################################################################
-titanic = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/titanic.csv')
+titanic = pd.read_csv('titanic.csv')
 # Create a groupby object: by_sex_class
 by_sex_class = titanic.groupby(['sex', 'pclass'])
 
@@ -376,7 +369,7 @@ def disparity(gr):
     # Return a DataFrame with the inputs {'z(gdp)':z, 'regional spread(gdp)':s}
     return pd.DataFrame({'z(gdp)':z , 'regional spread(gdp)':s})
 
-df = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/gapminder_tidy.csv', index_col='Country')
+df = pd.read_csv('gapminder_tidy.csv', index_col='Country')
 gapminder_2010 = df[df['Year']==2010].iloc[:,1:]
 
 # Group gapminder_2010 by 'region': regional
@@ -390,7 +383,7 @@ print(reg_disp.loc[['United States','United Kingdom','China']])
 
 
 ###############################################################################
-titanic = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/titanic.csv')
+titanic = pd.read_csv('titanic.csv')
 
 def c_deck_survival(gr):
     c_passengers = gr['cabin'].str.startswith('C').fillna(False)
@@ -407,7 +400,7 @@ print(c_surv_by_sex)
 
 ###############################################################################
 # Read file: sales
-sales = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/sales-feb-2015.csv', index_col='Date', parse_dates=True)
+sales = pd.read_csv('sales-feb-2015.csv', index_col='Date', parse_dates=True)
 # Group sales by 'Company': by_company
 by_company = sales.groupby('Company')
 
@@ -419,7 +412,7 @@ print(by_com_sum)
 by_com_filt = by_company.filter(lambda g:g['Units'].sum()>35)
 print(by_com_filt)
 ###############################################################################
-titanic = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/titanic.csv')
+titanic = pd.read_csv('titanic.csv')
 
 # Create the Boolean Series: under10
 under10 = (titanic.age<10).map({True:'under 10', False:'over 10'})
@@ -432,7 +425,7 @@ print(survived_mean_1)
 survived_mean_2 = titanic.groupby([under10, 'pclass'])['survived'].mean()
 print(survived_mean_2)
 ###############################################################################
-medals = pd.read_csv('F:/0 - PhD at UTD/2019 Spring/DataCamp/Manipulating DataFrames with pandas/all_medalists.csv')
+medals = pd.read_csv('all_medalists.csv')
 
 # Select the 'NOC' column of medals: country_names
 country_names = medals.NOC
@@ -567,21 +560,5 @@ usa_medals_by_year = usa_medals_by_year.unstack(level='Medal')
 # Create an area plot of usa_medals_by_year
 usa_medals_by_year.plot.area()
 plt.show()
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-
-###############################################################################
-
 ###############################################################################
 
